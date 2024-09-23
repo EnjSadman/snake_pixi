@@ -5,5 +5,5 @@ export const APP_CONSTANTS = {
   GAME_HEIGHT: 20,
   GAME_WIDTH: 20,
   SNAKE_WIDTH: 3,
-
+  BASE_SPEED: 1000,
 }

@@ -1,6 +1,7 @@
 import { Application, Graphics } from "pixi.js";
 import { APP_CONSTANTS } from "./appConstants/constants";
 import { describeBorders } from "./lib/describeBorders";
+import { drawSnake } from "./lib/drawSnake";
 
 
 (async() => {
@@ -31,6 +32,8 @@ import { describeBorders } from "./lib/describeBorders";
 
     app.stage.addChild(rectangle);
   }
+
+  console.log(drawSnake(null));
 
   document.body.appendChild(app.canvas);
 })();

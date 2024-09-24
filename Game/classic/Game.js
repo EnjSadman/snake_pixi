@@ -19,19 +19,19 @@ export class Game {
             app,
             1,
             APP_CONSTANTS.SNAKE_WIDTH,
-            APP_CONSTANTS.BASE_TILE_WIDTH
+            Math.floor(app.canvas.width / APP_CONSTANTS.GAME_WIDTH),
         );
         this.walls = new Walls(
             app,
             APP_CONSTANTS.GAME_HEIGHT,
             APP_CONSTANTS.GAME_WIDTH,
-            APP_CONSTANTS.BASE_TILE_WIDTH,
+            Math.floor(app.canvas.width / APP_CONSTANTS.GAME_WIDTH),
             this.snake
         );
         this.food = new Food(app,
             this.snake,
             this.walls.wallsCoords,
-            APP_CONSTANTS.BASE_TILE_WIDTH,
+            Math.floor(app.canvas.width / APP_CONSTANTS.GAME_WIDTH),
             APP_CONSTANTS.GAME_HEIGHT,
             APP_CONSTANTS.GAME_WIDTH
         );
@@ -39,7 +39,7 @@ export class Game {
     }
 
     start() {
-        this.walls.initializeWalls()
+        this.walls.initializeWalls();
         this.gameLoop();
         window.addEventListener('keydown', (event) => this.handleInput(event));
     }

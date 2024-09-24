@@ -31,6 +31,11 @@ body {
   border-left: 1px solid black;
 }
 
+.game {
+  width: 100%;
+  height: 100%;
+}
+
 .score__wrapper {
   display: flex;
   align-items: center;

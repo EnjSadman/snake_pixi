@@ -1,10 +1,10 @@
 import { Application } from "pixi.js";
-import { APP_CONSTANTS } from "./appConstants/constants";
 import { Game } from "./Game/classic/Game";
 import { GameGod } from "./Game/god/GameGod";
 import { GameSpeed } from "./Game/speed/GameSpeed";
 import { GamePortals } from "./Game/portals/GamePortals"
 import { GameWalls } from "./Game/walls/GameWalls";
+import { SmallerEven } from "./lib/SmallerEven";
 
 (async() => {
   const app = new Application();
@@ -56,8 +56,8 @@ import { GameWalls } from "./Game/walls/GameWalls";
 
 
   await app.init({
-    width: APP_CONSTANTS.BASE_TILE_WIDTH * APP_CONSTANTS.GAME_WIDTH,
-    height: APP_CONSTANTS.BASE_TILE_WIDTH * APP_CONSTANTS.GAME_HEIGHT
+    width: SmallerEven(gameField.offsetHeight),
+    height: SmallerEven(gameField.offsetHeight),
   });
 
   

@@ -1,6 +1,7 @@
 import { Application } from "pixi.js";
 import { APP_CONSTANTS } from "./appConstants/constants";
 import { Game } from "./Game/classic/Game";
+import { GameGod } from "./Game/god/GameGod";
 
 (async() => {
   const app = new Application();
@@ -24,7 +25,11 @@ import { Game } from "./Game/classic/Game";
 
     switch(mode) {
       case ("classic") : {
-        game = new Game(app);
+        game = new Game(app, "classic");
+        break;
+      }
+      case ("god") : {
+        game = new GameGod(app, "god")
       }
     }
     game.start();

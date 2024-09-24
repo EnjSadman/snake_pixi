@@ -6,10 +6,10 @@ import { Walls } from '../../lib/Walls';
 export class Game {
     score = 0;
     scoreField = document.getElementById("current");
+    speed = APP_CONSTANTS.BASE_SPEED
     app;
     snake;
     walls;
-    loop;
     food;
     mode;
 
@@ -28,7 +28,8 @@ export class Game {
             APP_CONSTANTS.BASE_TILE_WIDTH
         );
         this.food = new Food(app,
-            this.snake, this.walls,
+            this.snake,
+            this.walls,
             APP_CONSTANTS.BASE_TILE_WIDTH,
             APP_CONSTANTS.GAME_HEIGHT,
             APP_CONSTANTS.GAME_WIDTH
@@ -47,7 +48,7 @@ export class Game {
     }
 
     gameLoop() {
-        this.loop = setTimeout(() => {
+        setTimeout(() => {
             this.snake.move();
             if (!this.handleCollision()) {
                 this.checkFood();
@@ -55,7 +56,7 @@ export class Game {
             } else {
                 this.end();
             }
-        }, APP_CONSTANTS.BASE_SPEED);
+        }, this.speed);
     }
 
     handleInput(event) {

@@ -1,12 +1,14 @@
 import { APP_CONSTANTS } from '../../appConstants/constants';
 import { Food } from '../../lib/Food';
+import { ScoreSetter } from '../../lib/ScoreSetter';
 import { Snake } from '../../lib/Snake';
 import { Walls } from '../../lib/Walls';
 
 export class Game {
     score = 0;
     scoreField = document.getElementById("current");
-    speed = APP_CONSTANTS.BASE_SPEED
+    speed = APP_CONSTANTS.BASE_SPEED;
+    gameGoing = true;
     app;
     snake;
     walls;
@@ -36,6 +38,10 @@ export class Game {
             APP_CONSTANTS.GAME_WIDTH
         );
         this.mode = mode;
+
+        document.getElementById("menu").addEventListener("click", () => {
+            this.gameGoing = false;
+        })
     }
 
     start() {
@@ -50,12 +56,16 @@ export class Game {
 
     gameLoop() {
         setTimeout(() => {
-            this.snake.move();
-            if (!this.handleCollision()) {
-                this.checkFood();
-                this.gameLoop();
+            if (this.gameGoing) {
+                this.snake.move();
+                if (!this.handleCollision()) {
+                    this.checkFood();
+                    this.gameLoop();
+                } else {
+                    this.end();
+                }
             } else {
-                this.end();
+                this.end()
             }
         }, this.speed);
     }
@@ -81,7 +91,7 @@ export class Game {
         const snakeHeadX = this.snake.snakeSegments[0].position.x;
         const snakeHeadY = this.snake.snakeSegments[0].position.y;
 
-        return this.snake.checkCollision(this.walls.wallsCoords,snakeHeadX, snakeHeadY)
+        return this.snake.checkCollision(this.walls.wallsCoords, snakeHeadX, snakeHeadY)
     }
 
     checkFood() {
@@ -111,25 +121,10 @@ export class Game {
     }
 
     setFinalScore() {
-        let prevScore;
+        let prevScore = localStorage.getItem(this.mode);
         const scoreBoard = document.getElementById("best");
-        switch (this.mode) {
-            case ("speed"): {
-                prevScore = localStorage.getItem("speed");
-                if (prevScore === null || Number(prevScore) < this.score) { 
-                    localStorage.setItem("speed", this.score);
-                    scoreBoard.innerHTML = this.score;  
-                }
-                break;
-            }
-            default: {
-                prevScore = localStorage.getItem("classic");
-                if (prevScore === null || Number(prevScore) < this.score) { 
-                    localStorage.setItem("classic", this.score);
-                    scoreBoard.innerHTML = this.score;  
-                }
-                break;
-            }
+        if (ScoreSetter(prevScore, this.score, this.mode)) {
+            scoreBoard.innerHTML = this.score;
         }
     }
 

@@ -16,16 +16,16 @@ export class GameGod extends Game {
 
   repositionHead() {
     const snakeHead = this.snake.snakeSegments[0].position;
-    if (snakeHead.x < 1 * this.walls.tileSize) {
-      snakeHead.set((this.walls.width - 2) * this.walls.tileSize, snakeHead.y);
-    } else if (snakeHead.x > (this.walls.width - 2) * this.walls.tileSize) {
-      snakeHead.set(1 * this.walls.tileSize, snakeHead.y);
+    if (snakeHead.x < 1 * this.walls.baseSize) {
+      snakeHead.set((this.walls.width - 2) * this.walls.baseSize, snakeHead.y);
+    } else if (snakeHead.x > (this.walls.width - 2) * this.walls.baseSize) {
+      snakeHead.set(1 * this.walls.baseSize, snakeHead.y);
     }
 
-    if (snakeHead.y < 1 * this.walls.tileSize) {
-      snakeHead.set(snakeHead.x, (this.walls.height - 2) * this.walls.tileSize)
-    } else if (snakeHead.y > (this.walls.height - 2) * this.walls.tileSize) {
-      snakeHead.set(snakeHead.x, 1 * this.walls.tileSize);
+    if (snakeHead.y < 1 * this.walls.baseSize) {
+      snakeHead.set(snakeHead.x, (this.walls.height - 2) * this.walls.baseSize)
+    } else if (snakeHead.y > (this.walls.height - 2) * this.walls.baseSize) {
+      snakeHead.set(snakeHead.x, 1 * this.walls.baseSize);
     }
   }
 }

@@ -12,6 +12,7 @@ import { SmallerEven } from "./lib/SmallerEven";
   
   const play = document.getElementById("play");
   const exit = document.getElementById("exit");
+  const menu = document.getElementById("menu");
   const gameField = document.getElementById("game");
 
 
@@ -37,12 +38,15 @@ import { SmallerEven } from "./lib/SmallerEven";
       }
       case("speed") : {
         game = new GameSpeed(app, "speed");
+        break;
       }
       case("portals") : {
         game = new GamePortals(app, "portals");
+        break;
       }
       case("walls") : {
         game = new GameWalls(app, "walls");
+        break;
       }
     }
     game.start();
@@ -53,6 +57,13 @@ import { SmallerEven } from "./lib/SmallerEven";
   exit.addEventListener("click", () => {
     close();
   });
+
+  menu.addEventListener("click", () => {
+    document.getElementById("wrapper_menu").style.display = "none";
+    document.getElementById("wrapper_buttons").style.display = "flex";
+    app.stage.removeChildren();
+    }
+  )
 
 
   await app.init({

@@ -3,6 +3,7 @@ import { APP_CONSTANTS } from "./appConstants/constants";
 import { Game } from "./Game/classic/Game";
 import { GameGod } from "./Game/god/GameGod";
 import { GameSpeed } from "./Game/speed/GameSpeed";
+import { GamePortals } from "./Game/portals/GamePortals"
 
 (async() => {
   const app = new Application();
@@ -35,6 +36,9 @@ import { GameSpeed } from "./Game/speed/GameSpeed";
       }
       case("speed") : {
         game = new GameSpeed(app, "speed")
+      }
+      case("portals") : {
+        game = new GamePortals(app, "portals")
       }
     }
     game.start();

@@ -90,9 +90,12 @@ export class Game {
           this.food.placeFood();
         } else {
           if (this.snake.checkCollision(snakeHeadX, snakeHeadY, this.food.foodCoords[0][0], this.food.foodCoords[0][1])) {
-            this.setCurrentScore()
-            this.app.stage.removeChild(this.food.foodGraphic);
-            this.food.foodCoords.pop();
+            this.setCurrentScore();
+            this.food.foodGraphic.forEach(element => {     
+                this.app.stage.removeChild(element);
+            });
+            this.food.foodGraphic = []
+            this.food.foodCoords = [];
             this.snake.growSnake();
             return true;
           } else {
@@ -147,7 +150,11 @@ export class Game {
                 break
             }
             case ("portals") : {
-                
+                if (snakeHead.x === x1) {
+                    snakeHead.set(x2, y2);
+                } else if (snakeHead.x === x2) {
+                    snakeHead.set(x1, y1);
+                }
             }
         }
         

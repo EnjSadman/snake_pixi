@@ -94,6 +94,9 @@ export class Game {
             this.app.stage.removeChild(this.food.foodGraphic);
             this.food.foodCoords.pop();
             this.snake.growSnake();
+            return true;
+          } else {
+            return false;
           }
         }
       }
@@ -105,14 +108,48 @@ export class Game {
 
     setFinalScore() {
         let prevScore;
+        const scoreBoard = document.getElementById("best");
         switch (this.mode) {
+            case ("speed"): {
+                prevScore = localStorage.getItem("speed");
+                if (prevScore === null || Number(prevScore) < this.score) { 
+                    localStorage.setItem("speed", this.score);
+                    scoreBoard.innerHTML = this.score;  
+                }
+                break;
+            }
             default: {
                 prevScore = localStorage.getItem("classic");
                 if (prevScore === null || Number(prevScore) < this.score) { 
                     localStorage.setItem("classic", this.score);
-                    document.getElementById("best").innerHTML(this.score);  
+                    scoreBoard.innerHTML = this.score;  
                 }
+                break;
             }
         }
     }
+
+    repositionHead(x1, y1, x2, y2) {
+        const snakeHead = this.snake.snakeSegments[0].position;
+        switch (this.mode) {
+            case ("god") : {
+                if (snakeHead.x < 1 * this.walls.tileSize) {
+                    snakeHead.set((this.walls.width - 2) * this.walls.tileSize, snakeHead.y);
+                } else if (snakeHead.x > (this.walls.width - 2) * this.walls.tileSize) {
+                    snakeHead.set(1 * this.walls.tileSize, snakeHead.y);
+                }
+              
+                if (snakeHead.y < 1 * this.walls.tileSize) {
+                    snakeHead.set(snakeHead.x, (this.walls.height - 2) * this.walls.tileSize)
+                } else if (snakeHead.y > (this.walls.height - 2) * this.walls.tileSize) {
+                    snakeHead.set(snakeHead.x, 1 * this.walls.tileSize);
+                }
+                break
+            }
+            case ("portals") : {
+                
+            }
+        }
+        
+      }
 }

@@ -1,6 +1,6 @@
 import { Application } from "pixi.js";
 import { APP_CONSTANTS } from "./appConstants/constants";
-import { Game } from "./lib/Game";
+import { Game } from "./Game/classic/Game";
 
 (async() => {
   const app = new Application();
@@ -31,8 +31,8 @@ import { Game } from "./lib/Game";
 
 
   await app.init({
-    width: APP_CONSTANTS.BASE_TILE_WIDTH * APP_CONSTANTS.GAME_WIDTH + APP_CONSTANTS.BASE_TILE_WIDTH,
-    height: APP_CONSTANTS.BASE_TILE_WIDTH * APP_CONSTANTS.GAME_HEIGHT + APP_CONSTANTS.BASE_TILE_WIDTH
+    width: APP_CONSTANTS.BASE_TILE_WIDTH * APP_CONSTANTS.GAME_WIDTH,
+    height: APP_CONSTANTS.BASE_TILE_WIDTH * APP_CONSTANTS.GAME_HEIGHT
   });
 
   

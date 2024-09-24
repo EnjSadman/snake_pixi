@@ -1,15 +1,18 @@
-import { APP_CONSTANTS } from '../appConstants/constants';
-import { Snake } from './Snake';
-import { Walls } from './Walls';
+import { APP_CONSTANTS } from '../../appConstants/constants';
+import { Food } from '../../lib/Food';
+import { Snake } from '../../lib/Snake';
+import { Walls } from '../../lib/Walls';
 
 export class Game {
     snake;
     walls;
     loop;
+    food;
 
-    constructor(app) {
+    constructor(app, mode) {
         this.snake = new Snake(app, 1, APP_CONSTANTS.SNAKE_WIDTH, APP_CONSTANTS.BASE_TILE_WIDTH);
         this.walls = new Walls(app, APP_CONSTANTS.GAME_HEIGHT, APP_CONSTANTS.GAME_WIDTH, APP_CONSTANTS.BASE_TILE_WIDTH);
+        this.food = new Food(app, this.snake, this.walls, APP_CONSTANTS.BASE_TILE_WIDTH, APP_CONSTANTS.GAME_HEIGHT, APP_CONSTANTS.GAME_WIDTH);
     }
 
     start() {
@@ -21,6 +24,7 @@ export class Game {
     gameLoop() {
         this.loop = setTimeout(() => {
             this.snake.move();
+            this.food.checkFood();
             if (!this.handleCollision()) {
                 this.gameLoop();
             }

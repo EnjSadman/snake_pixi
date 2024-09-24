@@ -4,6 +4,7 @@ import { Game } from "./Game/classic/Game";
 import { GameGod } from "./Game/god/GameGod";
 import { GameSpeed } from "./Game/speed/GameSpeed";
 import { GamePortals } from "./Game/portals/GamePortals"
+import { GameWalls } from "./Game/walls/GameWalls";
 
 (async() => {
   const app = new Application();
@@ -35,10 +36,13 @@ import { GamePortals } from "./Game/portals/GamePortals"
         break;
       }
       case("speed") : {
-        game = new GameSpeed(app, "speed")
+        game = new GameSpeed(app, "speed");
       }
       case("portals") : {
-        game = new GamePortals(app, "portals")
+        game = new GamePortals(app, "portals");
+      }
+      case("walls") : {
+        game = new GameWalls(app, "walls");
       }
     }
     game.start();

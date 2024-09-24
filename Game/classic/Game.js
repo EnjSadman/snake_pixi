@@ -25,11 +25,12 @@ export class Game {
             app,
             APP_CONSTANTS.GAME_HEIGHT,
             APP_CONSTANTS.GAME_WIDTH,
-            APP_CONSTANTS.BASE_TILE_WIDTH
+            APP_CONSTANTS.BASE_TILE_WIDTH,
+            this.snake
         );
         this.food = new Food(app,
             this.snake,
-            this.walls,
+            this.walls.wallsCoords,
             APP_CONSTANTS.BASE_TILE_WIDTH,
             APP_CONSTANTS.GAME_HEIGHT,
             APP_CONSTANTS.GAME_WIDTH
@@ -80,7 +81,7 @@ export class Game {
         const snakeHeadX = this.snake.snakeSegments[0].position.x;
         const snakeHeadY = this.snake.snakeSegments[0].position.y;
 
-        return this.snake.checkCollision(snakeHeadX, snakeHeadY)
+        return this.snake.checkCollision(this.walls.wallsCoords,snakeHeadX, snakeHeadY)
     }
 
     checkFood() {
@@ -89,7 +90,7 @@ export class Game {
         if (this.food.foodCoords[0] === undefined) {
           this.food.placeFood();
         } else {
-          if (this.snake.checkCollision(snakeHeadX, snakeHeadY, this.food.foodCoords[0][0], this.food.foodCoords[0][1])) {
+          if (this.snake.checkCollision([], snakeHeadX, snakeHeadY, this.food.foodCoords[0][0], this.food.foodCoords[0][1])) {
             this.setCurrentScore();
             this.food.foodGraphic.forEach(element => {     
                 this.app.stage.removeChild(element);

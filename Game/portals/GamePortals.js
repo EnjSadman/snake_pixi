@@ -9,8 +9,8 @@ export class GamePortals extends Game {
       this.food.placeFood();
     } else {
       if (
-        this.snake.checkCollision(snakeHeadX, snakeHeadY, this.food.foodCoords[0][0], this.food.foodCoords[0][1])
-        || this.snake.checkCollision(snakeHeadX, snakeHeadY, this.food.foodCoords[1][0], this.food.foodCoords[1][1])
+        this.snake.checkCollision([], snakeHeadX, snakeHeadY, this.food.foodCoords[0][0], this.food.foodCoords[0][1])
+        || this.snake.checkCollision([], snakeHeadX, snakeHeadY, this.food.foodCoords[1][0], this.food.foodCoords[1][1])
       ) {
         this.setCurrentScore()
         this.repositionHead(this.food.foodCoords[0][0], this.food.foodCoords[0][1], this.food.foodCoords[1][0], this.food.foodCoords[1][1]);

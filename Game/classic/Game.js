@@ -4,15 +4,36 @@ import { Snake } from '../../lib/Snake';
 import { Walls } from '../../lib/Walls';
 
 export class Game {
+    score = 0;
+    scoreField = document.getElementById("current");
+    app;
     snake;
     walls;
     loop;
     food;
+    mode;
 
     constructor(app, mode) {
-        this.snake = new Snake(app, 1, APP_CONSTANTS.SNAKE_WIDTH, APP_CONSTANTS.BASE_TILE_WIDTH);
-        this.walls = new Walls(app, APP_CONSTANTS.GAME_HEIGHT, APP_CONSTANTS.GAME_WIDTH, APP_CONSTANTS.BASE_TILE_WIDTH);
-        this.food = new Food(app, this.snake, this.walls, APP_CONSTANTS.BASE_TILE_WIDTH, APP_CONSTANTS.GAME_HEIGHT, APP_CONSTANTS.GAME_WIDTH);
+        this.app = app;
+        this.snake = new Snake(
+            app,
+            1,
+            APP_CONSTANTS.SNAKE_WIDTH,
+            APP_CONSTANTS.BASE_TILE_WIDTH
+        );
+        this.walls = new Walls(
+            app,
+            APP_CONSTANTS.GAME_HEIGHT,
+            APP_CONSTANTS.GAME_WIDTH,
+            APP_CONSTANTS.BASE_TILE_WIDTH
+        );
+        this.food = new Food(app,
+            this.snake, this.walls,
+            APP_CONSTANTS.BASE_TILE_WIDTH,
+            APP_CONSTANTS.GAME_HEIGHT,
+            APP_CONSTANTS.GAME_WIDTH
+        );
+        this.mode = mode;
     }
 
     start() {
@@ -21,12 +42,18 @@ export class Game {
         window.addEventListener('keydown', (event) => this.handleInput(event));
     }
 
+    end() {
+        this.setFinalScore();
+    }
+
     gameLoop() {
         this.loop = setTimeout(() => {
             this.snake.move();
-            this.food.checkFood();
             if (!this.handleCollision()) {
+                this.checkFood();
                 this.gameLoop();
+            } else {
+                this.end();
             }
         }, APP_CONSTANTS.BASE_SPEED);
     }
@@ -53,5 +80,38 @@ export class Game {
         const snakeHeadY = this.snake.snakeSegments[0].position.y;
 
         return this.snake.checkCollision(snakeHeadX, snakeHeadY)
+    }
+
+    checkFood() {
+        const snakeHeadX = this.snake.snakeSegments[0].position.x;
+        const snakeHeadY = this.snake.snakeSegments[0].position.y;
+        if (this.food.foodCoords[0] === undefined) {
+          this.food.placeFood();
+        } else {
+          if (this.snake.checkCollision(snakeHeadX, snakeHeadY, this.food.foodCoords[0][0], this.food.foodCoords[0][1])) {
+            this.setCurrentScore()
+            this.app.stage.removeChild(this.food.foodGraphic);
+            this.food.foodCoords.pop();
+            this.snake.growSnake();
+          }
+        }
+      }
+
+    setCurrentScore() {
+        this.score += 1;
+        this.scoreField.innerHTML = this.score;
+    }
+
+    setFinalScore() {
+        let prevScore;
+        switch (this.mode) {
+            default: {
+                prevScore = localStorage.getItem("classic");
+                if (prevScore === null || Number(prevScore) < this.score) { 
+                    localStorage.setItem("classic", this.score);
+                    document.getElementById("best").innerHTML(this.score);  
+                }
+            }
+        }
     }
 }

@@ -13,6 +13,13 @@ import { Game } from "./Game/classic/Game";
 
   play.addEventListener("click", () => {
     const mode = document.querySelector('input[name="mode"]:checked').value;
+    const bestField = document.getElementById("best");
+    const bestScore = localStorage.getItem(mode);
+
+    if (bestScore !== null) {
+      bestField.innerHTML = bestScore;
+    }
+
     let game;
 
     switch(mode) {

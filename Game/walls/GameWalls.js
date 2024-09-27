@@ -1,4 +1,4 @@
-import { Game } from "../classic/Game";
+import { Game } from "../classic/Game.js";
 
 export class GameWalls extends Game {
   gameLoop() {

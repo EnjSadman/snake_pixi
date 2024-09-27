@@ -1,8 +1,8 @@
-import { APP_CONSTANTS } from '../../appConstants/constants';
-import { Food } from '../../lib/Food';
-import { ScoreSetter } from '../../lib/ScoreSetter';
-import { Snake } from '../../lib/Snake';
-import { Walls } from '../../lib/Walls';
+import { APP_CONSTANTS } from '../../appConstants/constants.js';
+import { Food } from '../../lib/Food.js';
+import { ScoreSetter } from '../../lib/ScoreSetter.js';
+import { Snake } from '../../lib/Snake.js';
+import { Walls } from '../../lib/Walls.js';
 
 export class Game {
     score = 0;
@@ -21,19 +21,19 @@ export class Game {
             app,
             1,
             APP_CONSTANTS.SNAKE_WIDTH,
-            Math.floor(app.canvas.width / APP_CONSTANTS.GAME_WIDTH),
+            Math.floor(app.view.width / APP_CONSTANTS.GAME_WIDTH),
         );
         this.walls = new Walls(
             app,
             APP_CONSTANTS.GAME_HEIGHT,
             APP_CONSTANTS.GAME_WIDTH,
-            Math.floor(app.canvas.width / APP_CONSTANTS.GAME_WIDTH),
+            Math.floor(app.view.width / APP_CONSTANTS.GAME_WIDTH),
             this.snake
         );
         this.food = new Food(app,
             this.snake,
             this.walls.wallsCoords,
-            Math.floor(app.canvas.width / APP_CONSTANTS.GAME_WIDTH),
+            Math.floor(app.view.width / APP_CONSTANTS.GAME_WIDTH),
             APP_CONSTANTS.GAME_HEIGHT,
             APP_CONSTANTS.GAME_WIDTH
         );

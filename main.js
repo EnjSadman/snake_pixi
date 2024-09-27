@@ -1,19 +1,21 @@
-import { Application } from "pixi.js";
-import { Game } from "./Game/classic/Game";
-import { GameGod } from "./Game/god/GameGod";
-import { GameSpeed } from "./Game/speed/GameSpeed";
-import { GamePortals } from "./Game/portals/GamePortals"
-import { GameWalls } from "./Game/walls/GameWalls";
-import { SmallerEven } from "./lib/SmallerEven";
+import { Game } from "./Game/classic/Game.js";
+import { GameGod } from "./Game/god/GameGod.js";
+import { GameSpeed } from "./Game/speed/GameSpeed.js";
+import { GamePortals } from "./Game/portals/GamePortals.js"
+import { GameWalls } from "./Game/walls/GameWalls.js";
 
 (async() => {
-  const app = new Application();
-
+  
   
   const play = document.getElementById("play");
   const exit = document.getElementById("exit");
   const menu = document.getElementById("menu");
   const gameField = document.getElementById("game");
+
+  const app = new PIXI.Application({
+    width: 700,
+    height: 700,
+  });
 
 
   play.addEventListener("click", () => {
@@ -64,13 +66,6 @@ import { SmallerEven } from "./lib/SmallerEven";
     app.stage.removeChildren();
     }
   )
-
-
-  await app.init({
-    width: SmallerEven(gameField.offsetHeight),
-    height: SmallerEven(gameField.offsetHeight),
-  });
-
   
-  gameField.appendChild(app.canvas);
+  gameField.appendChild(app.view);
 })();
